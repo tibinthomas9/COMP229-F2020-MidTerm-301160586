@@ -5,6 +5,38 @@
 <!-- Content for the Add page -->
 
 <!-- ADD YOU CODE TO CREATE THE ADD PAGE -->
+<div class="h-100 d-flex justify-content-center align-items-center ">
+    <div class=" w-75 my-5 ">
+<div id="main-container">
+    <h1><%= title %></h1>
+    <form method="POST" action="/book-list/add">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputName">Book name</label>
+                <input name="name" type="text" class="form-control" id="inputName">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputAuthor">Author name</label>
+                <input name="author" type="text" class="form-control" id="inputAuthor"">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputPublished">Published year</label>
+                <input name="published" type="number" class="form-control" id="inputPublished">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputDescription">Description</label>
+                <input name="description" type="text" class="form-control" id="inputDescription">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputPrice">Price</label>
+                <input name="price" type="number" class="form-control" id="inputPrice">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Apply</button>
+    </form>
+</div>
+</div>
+</div>
 
 
 <%- include ../partials/bottom_nav.ejs %>  

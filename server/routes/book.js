@@ -22,12 +22,63 @@ router.post('/add', bookController.processAddPage);
 router.get('/edit/:id', bookController.displayEditPage);
 
 /* 
-* add your code to 
 * POST Route for processing the Edit page - UPDATE Operation 
 */
+router.post('/edit/:id', bookController.processEditPage);
 
-/* add your code to 
+/*  
 *  GET to perform  Deletion - DELETE Operation 
 */
+router.get('/delete/:id', bookController.performDelete);
+
+// router.get('/delete/:id', async (req, res) => {
+//     try {
+//         const contact = await Book.findByIdAndDelete(req.params.id);
+
+//         if (!contact) {
+//             res.status(404).send();
+//         }
+//         res.redirect('/book-list');
+//     } catch (e) {
+//         res.status(500).send();
+//     }
+
+
+// })
+
+// router.post('/delete/:id', async (req, res) => {
+//     try {
+//         const contact = await Book.findByIdAndDelete(req.params.id);
+
+//         if (!contact) {
+//             res.status(404).send();
+//         }
+//         res.redirect('/book-list');
+//     } catch (e) {
+//         res.status(500).send();
+//     }
+// })
+
+// router.post('/edit/:id', async (req, res) => {
+//     console.log(req.params.id);
+//     console.log(req.body);
+//     const book = await Book.findByIdAndUpdate(req.params.id, { name: req.body.name, author: req.body.author, published: req.body.published, description: req.body.description, price: req.body.price }, { new: true });
+//     console.log(book);
+//     res.redirect('/book-list');
+
+
+// })
+
+// router.get('/edit/:id', async (req, res) => {
+
+
+//     const book = await Book.findById(req.params.id);
+
+//     res.render('book/edit', {
+//         book: book,
+//         title: "Edit"
+//     })
+// })
+
 
 module.exports = router;

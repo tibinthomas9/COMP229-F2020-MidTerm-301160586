@@ -7,21 +7,19 @@ let Book = require('../models/book');
 
 module.exports.displayBookList = (req, res, next) => {
     Book.find((err, bookList) => {
-        if(err)
-        {
+        if (err) {
             return console.error(err);
         }
-        else
-        {
+        else {
             //console.log(BookList);
 
-            res.render('book/list', {title: 'Books', BookList: bookList});      
+            res.render('book/list', { title: 'Books', BookList: bookList });
         }
     });
 }
 
 module.exports.displayAddPage = (req, res, next) => {
-    res.render('book/add', {title: 'Add Book'})          
+    res.render('book/add', { title: 'Add Book' })
 }
 
 module.exports.processAddPage = (req, res, next) => {
@@ -33,14 +31,12 @@ module.exports.processAddPage = (req, res, next) => {
         "price": req.body.price
     });
 
-    Book.create(newBook, (err, Book) =>{
-        if(err)
-        {
+    Book.create(newBook, (err, Book) => {
+        if (err) {
             console.log(err);
             res.end(err);
         }
-        else
-        {
+        else {
             // refresh the book list
             res.redirect('/book-list');
         }
@@ -48,29 +44,71 @@ module.exports.processAddPage = (req, res, next) => {
 
 }
 /*
-Add your code here to display EDIT
+  code  to display EDIT
 */
 
 module.exports.displayEditPage = (req, res, next) => {
-    Book.find((err, bookList) => {
-        if(err)
-        {
+    let id = req.params.id;
+    Book.findById(id, (err, bookToEdit) => {
+        if (err) {
             return console.error(err);
         }
-        else
-        {
-            //console.log(BookList);
+        else {
+            res.render('book/edit', {
+                book: bookToEdit,
+                title: "Edit Book Information"
+            })
 
-            res.render('book/list', {title: 'Books', BookList: bookList});      
+
         }
     });
 }
 
 /*
-Add your code here to process EDIT
+  code here to process EDIT
 */
+module.exports.processEditPage = (req, res, next) => {
+    let id = req.params.id;
+    let updatedBook = Book({
+        "_id": id,
+        "name": req.body.name,
+        "author": req.body.author,
+        "published": req.body.published,
+        "description": req.body.description,
+        "price": req.body.price
+    });
+    Book.updateOne({ _id: id }, updatedBook, (err) => {
+        if (err) {
+            return console.error(err);
+        }
+        else {
+
+            // refresh the book list
+            res.redirect('/book-list');
+
+
+        }
+    });
+}
 
 
 /*
-Add your code here to perform DELETE operation
+Code to perform DELETE operation
 */
+
+module.exports.performDelete = (req, res, next) => {
+    let id = req.params.id;
+    Book.remove({ _id: id }, (err) => {
+        if (err) {
+            return console.error(err);
+        }
+        else {
+            // refresh the book list
+            res.redirect('/book-list');
+
+
+        }
+    });
+
+}
+
